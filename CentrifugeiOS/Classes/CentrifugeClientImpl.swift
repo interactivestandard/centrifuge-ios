@@ -13,6 +13,7 @@ typealias CentrifugeBlockingHandler = ([CentrifugeServerMessage]?, Error?) -> Vo
 class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
     var ws: WebSocket!
     var url: String!
+    var callbackQueue: DispatchQueue?
     var creds: CentrifugeCredentials!
     var builder: CentrifugeClientMessageBuilder!
     var parser: CentrifugeServerMessageParser!
@@ -33,6 +34,9 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
         blockingHandler = connectionProcessHandler
         connectionCompletion = completion
         ws = WebSocket(url: URL(string: url)!)
+        if let callbackQueue = callbackQueue {
+            ws.callbackQueue = callbackQueue
+        }
         ws.delegate = self
         ws.connect()
     }
