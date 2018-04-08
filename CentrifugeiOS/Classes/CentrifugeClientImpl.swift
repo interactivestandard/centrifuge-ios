@@ -11,7 +11,7 @@ import Starscream
 typealias CentrifugeBlockingHandler = ([CentrifugeServerMessage]?, Error?) -> Void
 
 class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
-    var ws: WebSocket!
+    public var ws: WebSocket!
     var url: String!
     var callbackQueue: DispatchQueue?
     var creds: CentrifugeCredentials!

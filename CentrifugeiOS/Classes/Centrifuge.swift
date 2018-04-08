@@ -27,7 +27,7 @@ public class Centrifuge {
         client.url = url
         client.callbackQueue = callbackQueue
         client.delegate = delegate
-        
+    
         return client
     }
     
