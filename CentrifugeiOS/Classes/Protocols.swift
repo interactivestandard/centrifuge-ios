@@ -23,6 +23,9 @@ public protocol CentrifugeChannelDelegate {
 }
 
 public protocol CentrifugeClient {
+    //MARK: General variables
+    var isConnected: Bool {get}
+
     //MARK: General methods
     func connect(withCompletion: @escaping CentrifugeMessageHandler)
     func disconnect()

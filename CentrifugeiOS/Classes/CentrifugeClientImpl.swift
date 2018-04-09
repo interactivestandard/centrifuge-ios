@@ -17,7 +17,11 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
     var creds: CentrifugeCredentials!
     var builder: CentrifugeClientMessageBuilder!
     var parser: CentrifugeServerMessageParser!
-    
+
+    var isConnected: Bool {
+      return ws.isConnected
+    }
+
     weak var delegate: CentrifugeClientDelegate?
     
     var messageCallbacks = [String : CentrifugeMessageHandler]()
