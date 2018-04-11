@@ -19,7 +19,7 @@ public enum CentrifugeErrorCode: Int {
 public typealias CentrifugeMessageHandler = (CentrifugeServerMessage?, Error?) -> Void
 
 public class Centrifuge {
-  public class func client(url: String, callbackQueue: DispatchQueue? = nil, creds: CentrifugeCredentials, delegate: CentrifugeClientDelegate) -> CentrifugeClient {
+  public class func client(url: URL, callbackQueue: DispatchQueue? = nil, creds: CentrifugeCredentials, delegate: CentrifugeClientDelegate) -> CentrifugeClient {
         let client = CentrifugeClientImpl()
         client.builder = CentrifugeClientMessageBuilderImpl()
         client.parser = CentrifugeServerMessageParserImpl()
