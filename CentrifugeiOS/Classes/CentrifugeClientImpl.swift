@@ -125,7 +125,6 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
      */
     func connectionProcessHandler(messages: [CentrifugeServerMessage]?, error: Error?) -> Void {
         guard let handler = connectionCompletion else {
-            assertionFailure("Error: No connectionCompletion")
             return
         }
         
@@ -137,7 +136,6 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
         }
         
         guard let message = messages?.first else {
-            assertionFailure("Error: Empty messages array")
             return
         }
         
@@ -172,7 +170,6 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
     func defaultProcessHandler(message: CentrifugeServerMessage) {
         var handled = false
         if let uid = message.uid, messageCallbacks[uid] == nil {
-            assertionFailure("Error: Untracked message is received")
             return
         }
         
@@ -198,25 +195,21 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
         // Channel events
         case .message:
             guard let channel = message.body?["channel"] as? String, let delegate = subscription[channel] else {
-                assertionFailure("Error: Invalid \(message.method) handler")
                 return
             }
             delegate.client(self, didReceiveMessageInChannel: channel, message: message)
         case .join:
             guard let channel = message.body?["channel"] as? String, let delegate = subscription[channel] else {
-                assertionFailure("Error: Invalid \(message.method) handler")
                 return
             }
             delegate.client(self, didReceiveJoinInChannel: channel, message: message)
         case .leave:
             guard let channel = message.body?["channel"] as? String, let delegate = subscription[channel] else {
-                assertionFailure("Error: Invalid \(message.method) handler")
                 return
             }
             delegate.client(self, didReceiveLeaveInChannel: channel, message: message)
         case .unsubscribe:
             guard let channel = message.body?["channel"] as? String, let delegate = subscription[channel] else {
-                assertionFailure("Error: Invalid \(message.method) handler")
                 return
             }
             delegate.client(self, didReceiveUnsubscribeInChannel: channel, message: message)
@@ -230,7 +223,7 @@ class CentrifugeClientImpl: NSObject, CentrifugeClient, WebSocketDelegate {
         case .refresh:
             delegate?.client(self, didReceiveRefreshMessage: message)
         default:
-            assertionFailure("Error: Invalid method type")
+          break
         }
     }
     

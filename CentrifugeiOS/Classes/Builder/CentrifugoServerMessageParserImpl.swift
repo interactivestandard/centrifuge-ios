@@ -33,8 +33,6 @@ class CentrifugeServerMessageParserImpl: CentrifugeServerMessageParser {
             return messages
             
         }catch {
-            //TODO: add error thrown
-            assertionFailure("Error: Invalid message json")
             return []
         }
     }
